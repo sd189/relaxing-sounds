@@ -1,0 +1,70 @@
+version: "3.7"
+services:
+  app:
+    build:
+      args:
+        user: sammy
+        uid: 1000
+      context: ./
+      dockerfile: Dockerfile
+    image: relaxing-sounds
+    container_name: relaxing-sounds-app
+    restart: unless-stopped
+    working_dir: /var/www/
+    volumes:
+      - ./:/var/www
+    networks:
+      - relaxing-sounds
+
+  db:
+    image: mysql:5.7
+    container_name: relaxing-sounds-db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_USER: ${DB_USERNAME}
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    networks:
+      - relaxing-sounds
+
+  phpmyadmin:
+    depends_on:
+      - db
+    image: phpmyadmin/phpmyadmin
+    container_name: relaxing-sounds-phpmyadmin
+    restart: always
+    ports:
+      - '8080:80'
+    environment:
+      PMA_HOST: db
+      MYSQL_ROOT_PASSWORD: password
+    networks:
+      - relaxing-sounds
+
+  nginx:
+    image: nginx:alpine
+    container_name: relaxing-sounds-nginx
+    restart: unless-stopped
+    ports:
+      - 8000:80
+    volumes:
+      - ./:/var/www
+      - ./docker-compose/nginx:/etc/nginx/conf.d/
+    networks:
+      - relaxing-sounds
+
+  redis:
+    image: redis
+    container_name: relaxing-sounds-redis
+    restart: unless-stopped
+    volumes:
+      - ./docker-compose/redis:/data
+    ports:
+      - "6389:6389"
+
+networks:
+  relaxing-sounds:
+    driver: bridge
