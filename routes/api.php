@@ -13,6 +13,13 @@ use Illuminate\Http\Request;
 |
 */
 
+// categories
+Route::group(['prefix' => 'categories', 'namespace'=> '\App\Http\Controllers\API'], function () {
+    Route::get('', 'CategoryController@getCategories');
+    Route::get('/{slug}', 'CategoryController@getCategory')
+        ->where('slug', '[A-Za-z-0-9-]+');
+});
+
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
