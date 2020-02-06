@@ -14,7 +14,7 @@ class CategoryRepository extends AbstractEntityRepository
     public function findBySlug($slug)
     {
         $queryBuilder = $this->createQueryBuilder('category')
-            ->select('partial category.{id, name, slug, createdAt, updatedAt}')
+            ->select('partial category.{id, name, slug, image, createdAt, updatedAt}')
             ->where('category.deletedAt is null')
             ->andWhere('category.slug = :slug')
             ->setParameter('slug', $slug);
@@ -47,7 +47,7 @@ class CategoryRepository extends AbstractEntityRepository
     private function baseQuery($filters)
     {
         $queryBuilder = $this->createQueryBuilder('category')
-            ->select('partial category.{id, name, slug, createdAt, updatedAt}')
+            ->select('partial category.{id, name, slug, image, createdAt, updatedAt}')
             ->where('category.deletedAt is null');
 
         if ($this->hasOptionAndNotNull('name', $filters)) {

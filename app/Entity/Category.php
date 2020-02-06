@@ -38,6 +38,12 @@ class Category
      */
     private $slug;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="image", type="text", nullable=false)
+     */
+    private $image;
 
     /**
      * @var \DateTime
@@ -106,9 +112,29 @@ class Category
      *
      * @return Category
      */
-    public function setMetaDescription($slug)
+    public function setSlug($slug)
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * @param string $image
+     *
+     * @return Category
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
 
         return $this;
     }
