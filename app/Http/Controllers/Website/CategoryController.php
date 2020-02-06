@@ -40,9 +40,12 @@ class CategoryController extends Controller
         return view('categories', $data);
     }
 
-    function view($slug)
+    function view(Request $request, $slug)
     {
         $categoryResponse = $this->apiClient->get('categories/'.$slug);
+        $request->request->add(['categoryId' => $categoryResponse['id']]);
+
+        $songsResponse = $this->apiClient->get('songs', $request->all());
 
         if (isset($categoryResponse['status_code']) == 404) {
             abort(404);
@@ -51,6 +54,7 @@ class CategoryController extends Controller
         $data = [
             'data' => [
                 'category' => $categoryResponse,
+                'songs' => $songsResponse,
             ]
         ];
 
