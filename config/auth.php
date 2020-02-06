@@ -41,10 +41,14 @@ return [
             'provider' => 'users',
         ],
 
-        'api' => [
-            'driver' => 'token',
+        'admin' => [
+            'driver' => 'jwt',
+            'provider' => 'admins',
+        ],
+
+        'user' => [
+            'driver' => 'jwt',
             'provider' => 'users',
-            'hash' => false,
         ],
     ],
 
@@ -67,8 +71,8 @@ return [
 
     'providers' => [
         'users' => [
-            'driver' => 'eloquent',
-            'model' => App\User::class,
+            'driver' => 'doctrine',
+            'model' => App\Entity\User::class,
         ],
 
         // 'users' => [
