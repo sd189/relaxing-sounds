@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Utility\ApiClient;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -16,6 +17,25 @@ use Validator;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+
+    protected $apiClient;
+
+    function __construct(ApiClient $apiClient)
+    {
+        $this->apiClient = $apiClient;
+        $this->getJwtAuthToken();
+    }
+
+    function getJwtAuthToken()
+    {
+        $response = $this->apiClient->post('users/auth');
+        if (isset($response['data']) && isset($response['data']['token'])) {
+            session()->put('token', $response['data']['token']);
+            session()->save();
+        } else {
+            abort(500);
+        }
+    }
 
     /**
      * @param $totalRecord
