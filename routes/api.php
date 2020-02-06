@@ -20,6 +20,11 @@ Route::middleware('isAuthenticated')->group(function () {
         Route::get('/{slug}', 'CategoryController@getCategory')
             ->where('slug', '[A-Za-z-0-9-]+');
     });
+
+   // songs
+    Route::group(['prefix' => 'songs'], function () {
+        Route::get('', 'SongController@getSongs');
+    });
 });
 
 Route::post('users/auth', 'UserController@authenticateWebAdmin');
