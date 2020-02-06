@@ -16,6 +16,10 @@
         @endforeach
     </div>
 
+    @if($data['categories']['meta']['total'] == 0)
+        <h2 class="mt-5">Thier is no Data</h2>
+    @endif
+
     @if($data['categories']['meta']['lastPage'] > 1)
         <div class="row">
             <div class="col-12">
