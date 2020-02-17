@@ -47,6 +47,9 @@ class CategoryController extends Controller
 
         $songsResponse = $this->apiClient->get('songs', $request->all());
 
+        $request->request->add(['sessionId' => session()->getId()]);
+        $favoritesResponse = $this->apiClient->get('favorites', $request->all());
+
         if (isset($categoryResponse['status_code']) == 404) {
             abort(404);
         }
