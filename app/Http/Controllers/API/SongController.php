@@ -10,9 +10,9 @@ use App\Http\Controllers\Controller;
 /**
  * Class SongController
  *
- * @resource Categories
+ * @resource Songs
  *
- * @package App\Http\Controllers
+ * @package App\Http\Controllers\API
  */
 class SongController extends Controller
 {

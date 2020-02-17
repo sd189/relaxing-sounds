@@ -12,7 +12,7 @@ use App\Http\Controllers\Controller;
  *
  * @resource Categories
  *
- * @package App\Http\Controllers
+ * @package App\Http\Controllers\API
  */
 class CategoryController extends Controller
 {

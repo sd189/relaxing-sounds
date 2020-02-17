@@ -12,7 +12,7 @@ use App\Http\Controllers\Controller;
  *
  * @resource Users
  *
- * @package App\Http\Controllers
+ * @package App\Http\Controllers\API
  */
 class UserController extends Controller
 {
