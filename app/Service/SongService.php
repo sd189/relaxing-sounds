@@ -59,4 +59,14 @@ class SongService extends Service
 
         return $results;
     }
+
+    /**
+     * @param $id
+     *
+     * @return null|object|Song
+     */
+    public function getSongObject($id)
+    {
+        return $this->songRepository->findOneBy(['id' => $id, 'deletedAt' => null]);
+    }
 }
