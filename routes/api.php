@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('isAuthenticated')->group(function () {
+//Route::middleware('isAuthenticated')->group(function () {
     // categories
     Route::group(['prefix' => 'categories'], function () {
         Route::get('', 'CategoryController@getCategories');
@@ -25,7 +25,13 @@ Route::middleware('isAuthenticated')->group(function () {
     Route::group(['prefix' => 'songs'], function () {
         Route::get('', 'SongController@getSongs');
     });
-});
+
+    // favorites
+    Route::group(['prefix' => 'favorites'], function () {
+        Route::get('', 'FavoriteController@getFavorites');
+        Route::post('', 'FavoriteController@addToFavorite');
+    });
+//});
 
 Route::post('users/auth', 'UserController@authenticateWebAdmin');
 
